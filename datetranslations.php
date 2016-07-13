@@ -11,7 +11,7 @@ use RocketTheme\Toolbox\Event\Event;
  */
  
  
-class DateTranslationPlugin extends Plugin
+class DateTranslationsPlugin extends Plugin
 {
     /**
      * @return array
