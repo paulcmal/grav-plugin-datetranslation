@@ -1,0 +1,26 @@
+name: Date Translations
+version: 0.1
+description: "Provides a twig function for date translation"
+testing: true
+icon: user
+author:
+    name: Paul Berettoni (cmal)
+    email: paul@cmal.info
+    url: https://cmal.info
+homepage: https://github.com/paulcmal/grav-plugin-datetranslations
+keywords: intl, translation, language, international, multilang
+license: Fuck Property Public License
+
+form:
+  validation: loose
+  fields:
+    enabled:
+      type: toggle
+      label: Plugin status
+      highlight: 1
+      default: 1
+      options:
+        1: Enabled
+        0: Disabled
+      validate:
+        type: bool
