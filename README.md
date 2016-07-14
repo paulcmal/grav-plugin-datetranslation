@@ -1,6 +1,6 @@
 # Grav DateTranslations plugin
 
-Date Translations provides twig function `date_translate(DATE, FORMAT)` that provides translations for dates using [Date](https://github.com/jenssegers/date) as a wrapper around Carbon.
+Date Translations provides twig function/filter `dt(DATE, FORMAT)` that provides translations for dates using [Date](https://github.com/jenssegers/date) as a wrapper around Carbon.
 
 # Installation
 
@@ -12,16 +12,19 @@ mv grav-plugin-socialmeta datetranslations
 
 # Usage
 
-`date_translate()` takes two arguments:
-- a string parsable by the [Carbon API](https://github.com/briannesbitt/Carbon) for a date
-- a [dateformat](http://php.net/manual/fr/function.date.php)
+`dt()` takes two arguments:
+- a string parsable by the [Carbon API](https://github.com/briannesbitt/Carbon) for a date (in English)
+- a [dateformat](http://php.net/manual/fr/function.date.php), or one of the translations
 
-For example, to display the current date formatted like '13 July 2016':
-`{{ date.translate('now', 'd F Y') }}`
-
-Or to display the day of the week of the 1st of next month:
-`{{ date_translate('first day of next month', 'l'}}`
-
+For example:
+```
+    {{ 'now'|dt('Y') }}
+    <br>{{ 'now'|dt('long') }}
+    <br>{{ 'first day of next month'|dt('long') }}
+    <br>{{ 'last day of next month'|dt('long') }}
+    <br>{{ 'first day of next month'|dt('short') }}
+    <br>{{ dt('first day of next month','short') }}
+    <br>{{ dt('+1 year', 'long') }}
 ```
 
 # License
