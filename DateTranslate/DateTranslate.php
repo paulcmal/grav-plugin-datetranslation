@@ -6,18 +6,23 @@ use Jenssegers\Date\Date;
 
 class DateTranslate extends \Twig_Extension {
 
-    public function __construct($lang) {
-        $this->lang = $lang;
+    public function __construct($grav) {
+        $this->grav = $grav;
     }
 
     public function getName() {
       return 'DateTranslate';
     }
   
+    public function getFilters() {
+        return array(
+            new \Twig_SimpleFilter('dt', [$this, 'dateTranslate']),
+        );
+    }
+    
     public function getFunctions() {
         return array(
-            new \Twig_SimpleFunction('date_translate', [$this, 'dateTranslate'], array(
-            'is_safe' => array('html'),)),
+            new \Twig_SimpleFunction('dt', [$this, 'dateTranslate']),
         );
     }
   /**
@@ -29,8 +34,19 @@ class DateTranslate extends \Twig_Extension {
    * @return object
    *   Cloned object.
    */
-  public function dateTranslate($date, $format) {
-      Date::setLocale($this->lang);
-      return Date::parse($date)->format($format);
-  }
+    public function dateTranslate($date, $format) {
+        if (in_array($format, Array('short', 'long'))) {
+            //echo "translating $date with PLUGIN_DATETRANSLATIONS." .strtoupper($format);
+            $format = $this->grav['language']->translate('PLUGIN_DATETRANSLATIONS.' . strtoupper($format));
+            //echo "to $format<br>";
+        }
+
+        $now = Date::parse($date);
+        $locale = Date::getLocale();
+        Date::setLocale($this->grav['language']->getActive());
+        $output = $now->format($format);
+        Date::setLocale($locale);
+        return $output;
+        
+    }
 }

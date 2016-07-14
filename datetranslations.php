@@ -36,7 +36,7 @@ class DateTranslationsPlugin extends Plugin
 
     public function onTwigExtensions() {
         require_once __DIR__ . '/DateTranslate/DateTranslate.php';
-        $this->grav['twig']->twig->addExtension(new DateTranslate($this->grav['language']->getActive()));
+        $this->grav['twig']->twig->addExtension(new DateTranslate($this->grav));
     }
     
     public function onTwigSiteVariables() {
